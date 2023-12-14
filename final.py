@@ -1,6 +1,5 @@
 import random
 import math
-global plain_text_lst
 plain_text = input("Enter the plain text: ")
 plain_text_lst = []
 padding_required=len(plain_text)%8
@@ -13,7 +12,6 @@ for i in plain_text:
 
 
 def conv_to_binary():
-    global plain_text_lst
     split_64_binary = []
     for j in range(8):
         temp = plain_text_lst.pop(0)
