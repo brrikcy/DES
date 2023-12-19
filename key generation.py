@@ -93,6 +93,8 @@ def permuted_choice_2(pc2_input1,pc2_input2):
     pc2_permutation_table=gen_permutation_table(48)
     pc2_output=mapping(pc2_permutation_table,pc2_binary_table)
     return pc2_output
+
+#unfinished key generation function
 def key_generation(n):
     key_list=[]
     read_key()
