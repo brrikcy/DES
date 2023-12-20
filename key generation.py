@@ -93,31 +93,25 @@ def permuted_choice_2(pc2_input1,pc2_input2):
     pc2_permutation_table=gen_permutation_table(48)
     pc2_output=mapping(pc2_permutation_table,pc2_binary_table)
     return pc2_output
-def key_generation(n):
+def key_generation():
     key_list=[]
-    read_key()
     pc1_output=permuted_choice_1()
     pc1_output_split1=pc1_output[0]
     pc1_output_split2 = pc1_output[1]
-    def round_operation(no_shifts):
-        pass
-    for round in range(1,16):
-        if round==1:
-            cls_output=circular_left_shift(pc1_output_split1,pc1_output_split2,1)
-            cls_output_split1=cls_output[0]
-            cls_output_split2 = cls_output[1]
-            generated_key=permuted_choice_2(cls_output_split1,cls_output_split2)
-        elif round==2 or round==9 or round==16:
-            round_operation(1)
+    cls_output = circular_left_shift(pc1_output_split1, pc1_output_split2, 1)
+    cls_output_split1 = cls_output[0]
+    cls_output_split2 = cls_output[1]
+    for rounds in range(16):
+        if rounds==2 or rounds==9 or rounds==16:
+            no_of_shift=1
         else:
-            round_operation(2)
-
-    key_list.append(generated_key)
-
-
-
-
-
-
-
-
+            no_of_shift=2
+        cls_recursive_output=circular_left_shift(cls_output_split1, cls_output_split2, no_of_shift)
+        generated_key = permuted_choice_2(cls_output_split1, cls_output_split2)
+        key_list.append(generated_key)
+        cls_output_split1 = cls_recursive_output[0]
+        cls_output_split2 = cls_recursive_output[1]
+    return key_list
+keys=key_generation()
+print(keys)
+print(len(keys))
