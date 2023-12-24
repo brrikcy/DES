@@ -1,7 +1,6 @@
 import random
 import math
 
-
 def key_generation():
     key_list = []
     pc1_output = permuted_choice_1()
@@ -11,30 +10,36 @@ def key_generation():
     cls_output_split1 = cls_output[0]
     cls_output_split2 = cls_output[1]
     pc2_permutation_table = gen_permutation_table(48)
-    for rounds in range(1, 17):
-        if rounds + 1 == 2 or rounds + 1 == 9 or rounds + 1 == 16:
+    for rounds in range(1,17):
+        if rounds+1 == 2 or rounds+1 == 9 or rounds+1 == 16:
             no_of_shift = 1
         else:
             no_of_shift = 2
-        generated_key = permuted_choice_2(cls_output_split1, cls_output_split2, pc2_permutation_table)
+        generated_key = permuted_choice_2(cls_output_split1, cls_output_split2,pc2_permutation_table)
         key_list.append(generated_key)
         cls_recursive_output = circular_left_shift(cls_output_split1, cls_output_split2, no_of_shift)
         cls_output_split1 = cls_recursive_output[0]
         cls_output_split2 = cls_recursive_output[1]
     return key_list
-
-
 def plaintext_operations():
-    plain_text_lst = read_plain_text()
+    plain_text_lst=read_plain_text()
     initial_permutation_table = gen_permutation_table(64)
     iterations_required = int(len(plain_text_lst) / 8)
     for i in range(iterations_required):
         initial_permutation_binary_table = conv_to_binary(plain_text_lst)
-        initial_permutation_result = mapping(initial_permutation_table, initial_permutation_binary_table)
+        initial_permutation_result=mapping(initial_permutation_table,initial_permutation_binary_table)
         """The following operations have to be added to this loop. 
         1. 16 round operations
         2. 32 bit swap
         3. Inverse initial permutation  """
+
+
+
+
+
+
+
+
 
 
 def read_plain_text():
@@ -109,7 +114,8 @@ def circular_left_shift(cls_inp1, cls_inp2, shifts):
     return cls_output1, cls_output2
 
 
-def permuted_choice_2(pc2_input1, pc2_input2, pc2_permutation_table):
+
+def permuted_choice_2(pc2_input1, pc2_input2,pc2_permutation_table):
     pc2_binary_table = pc2_input1 + pc2_input2
     indices_to_be_removed = [9, 18, 22, 25, 35, 38, 43, 54]
     i = 0
@@ -118,3 +124,7 @@ def permuted_choice_2(pc2_input1, pc2_input2, pc2_permutation_table):
         i += 1
     pc2_output = mapping(pc2_permutation_table, pc2_binary_table)
     return pc2_output
+
+
+
+plaintext_operations()
