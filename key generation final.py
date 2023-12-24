@@ -45,9 +45,9 @@ def initial_permutation():
     plain_text = read_plain_text()
     initial_permutation_table = gen_permutation_table(64)
     plain_text_lst = plain_text[0]
-    initial_permutation_binary_table = conv_to_binary(plain_text_lst)
     iterations_required = plain_text[1]
     for i in range(iterations_required):
+        initial_permutation_binary_table = conv_to_binary(plain_text_lst)
         print(f"Iteration {i + 1}")
         print("*" * 10)
         initial_permutation_result = mapping(initial_permutation_table, initial_permutation_binary_table)
@@ -125,5 +125,4 @@ def key_generation():
     return key_list
 
 
-# key_generation()
-initial_permutation()
+key_generation()
