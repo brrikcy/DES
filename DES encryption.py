@@ -6,12 +6,11 @@ def read_plain_text():
     plain_text = input("Enter the plain text: ")
     plain_text_lst = []
     padding_required = len(plain_text) % 8
-    iterations_required = math.ceil(len(plain_text) / 8)
     if padding_required != 0:
         plain_text = plain_text.ljust(8 * math.ceil(len(plain_text) / 8), '0')
     for i in plain_text:
         plain_text_lst.append(i)
-    return plain_text_lst, iterations_required
+    return plain_text_lst
 
 
 def conv_to_binary(user_input_list):
@@ -41,17 +40,9 @@ def mapping(permutation_table, binary_table):
     return permuted_table
 
 
-def initial_permutation():
-    plain_text = read_plain_text()
-    initial_permutation_table = gen_permutation_table(64)
-    plain_text_lst = plain_text[0]
-    initial_permutation_binary_table = conv_to_binary(plain_text_lst)
-    iterations_required = plain_text[1]
-    for i in range(iterations_required):
-        print(f"Iteration {i + 1}")
-        print("*" * 10)
-        initial_permutation_result = mapping(initial_permutation_table, initial_permutation_binary_table)
-        print(initial_permutation_result)
+def initial_permutation(initial_permutation_table,initial_permutation_binary_table):
+    initial_permutation_result = mapping(initial_permutation_table, initial_permutation_binary_table)
+    print(initial_permutation_result)
 
 
 def read_key():
@@ -124,6 +115,13 @@ def key_generation():
         cls_output_split2 = cls_recursive_output[1]
     return key_list
 
-
-# key_generation()
-initial_permutation()
+def plaintext_operations():
+    plain_text_lst=read_plain_text()
+    initial_permutation_table = gen_permutation_table(64)
+    iterations_required = int(len(plain_text_lst) / 8)
+    for i in range(iterations_required):
+        initial_permutation_binary_table = conv_to_binary(plain_text_lst)
+        print(f"Iteration {i + 1}")
+        print("*" * 10)
+        initial_permutation(initial_permutation_table,initial_permutation_binary_table)
+plaintext_operations()
