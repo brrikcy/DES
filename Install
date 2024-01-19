@@ -1,0 +1,5 @@
+Run the program using any IDE's like VScode, Pycharm etc..or using CMD by going into the path of file in cmd and ->
+python DES.py
+
+Running Environment:
+A system with basic processor with python installed in it.
